@@ -1,0 +1,18 @@
+//
+ Create a form having fields user name and email id and a submit button
+ Clicking on submit takes you to path /login where data of form is displayed
+ Also create a link that taks you to path /show which shows same data in table format from the file show.pug
+html 
+ head 
+  title Form 
+ body
+  form(action="/login" method='post') 
+   label(for='uname') User-Name: 
+   input(type='text' name='uname')
+   br
+   br
+   label(for='mail') Email-Id: 
+   input(type='email' name='mail')
+   br
+   br
+   input(type="submit" placeholder='Submit')
