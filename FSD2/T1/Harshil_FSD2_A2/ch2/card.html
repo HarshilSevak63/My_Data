@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div-card{
+            max-width: 250px;
+            border:2px solid black;
+            border-radius: 2rem;
+            max-height:500px;
+        }
+        .img-card{
+            border-radius: 50%;
+            border: 1px solid black;
+            max-height: 120px;
+            margin-left: 60px;
+            margin-top: 10px;
+            /* border-shadow: 2px; */
+            /* shadow-color:hsl(0, 5%, 87%); */
+        }
+        .h1-card{
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: large;
+        }
+        .p-card{
+            text-align: center;
+            margin:10px;
+        }
+        /* .div-card:hover{
+           box-shadow: 15px 15px hsla(0, 0%, 47%, 0.836);
+        } */
+        .div-card {
+        transition: transform 0.5s ease-in, box-shadow 0.5s ease-out; /* Smooth transitions */
+        }
+
+        .div-card:hover {
+        transform: translateY(-10px); /* Move the element upwards */
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2); /* Adjust shadow for uplift */
+        }
+
+        /* Optional: Add a slight scale effect for more emphasis */
+        .div-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Media query for larger screens, if needed */
+        @media screen and (min-width: 768px) {
+        .div-card:hover {
+            transform: translateY(-15px) scale(1.03); /* More pronounced effect on larger screens */
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="div-card">
+        <img class="img-card" src="download.jfif" alt="logo">
+        <h1 class="h1-card">Name: XYZ</h1>
+        <p class="p-card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem nobis earum modi eius, voluptatum incidunt expedita natus laudantium quibusdam nulla aliquid enim, est alias facere facilis, laborum numquam minus praesentium?</p>
+    </div>
+</body>
+</html>

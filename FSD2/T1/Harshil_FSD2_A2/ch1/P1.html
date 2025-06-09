@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1</title>
+</head>
+<body>
+    <script>
+        // ---------Sort Using Loops---------
+
+        // var persons=[{'name':'abc','age':25},
+        //             {'name':'xyz','age':28},
+        //             {'name':'pqr','age':26}];
+        // for(var i=0;i<persons.length;i++){
+        //     for(var j=i;j<persons.length;j++){
+        //         if(persons[i].age<persons[j].age){
+        //             temp=persons[i];
+        //             persons[i]=persons[j];
+        //             persons[j]=temp;
+        //         }
+        //     }
+        // }
+        // document.write(JSON.stringify(persons));
+
+        // ---------Sort Using ES-6---------
+
+        var persons=[{'name':'abc','age':5},
+                    {'name':'xyz','age':28},
+                    {'name':'pqr','age':16}];
+        persons.sort((a,b)=>b.age-a.age);
+        document.write(JSON.stringify(persons));
+    </script>
+</body>
+</html>

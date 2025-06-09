@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Write a code to full-fill following tasks
+     1. A heading must be displayed after 5s of page load-Hello world
+     2. Create a heading LJKU Engineering and 3 buttons - +, - ,stop
+     3. When a user clikes on + button the font size of heading increases after every 100ms until it is 200px or stop button is clicked
+     4. When a user clikes on - button the font size of heading decreases after every 100ms until it is 20px or stop button is clicked(initial size=50px) -->
+
+     <h1 id="a"></h1>
+     <h1 id="b">LJKU Engineering</h1>
+     <button id="b1" onclick="inc()">++</button>
+     <button id="b2" onclick="dec()">--</button>
+     <button id="b3" onclick="Stop()">STOP</button>
+     <script>
+        var f=50;
+        var x=document.getElementById("a");
+        var y=document.getElementById("b");
+        setTimeout(()=>x.innerText="Hello World!",5000);
+        y.style.fontSize=f+"px";
+        function setSize(f){
+            b.style.fontSize=f+"px";
+        }
+        function inc(){
+            test=setInterval(()=>{
+                if(f<200) setSize(++f);},100)
+        }
+        function dec(){
+            test=setInterval(()=>{
+                if(f>=50) setSize(--f);},100)
+        }
+        function Stop(){
+            clearInterval(test);
+            // setSize(f);
+        }
+     </script>
+</body>
+</html>
