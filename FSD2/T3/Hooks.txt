@@ -1,0 +1,6 @@
+Hooks statement must be first statement in function.
+Hooks can not be directly called/updated it should be called using function/custom function
+useState -> Imp for exam (5M)
+useReduce
+useEffect
+useContext -> Imp for exam (5M)
