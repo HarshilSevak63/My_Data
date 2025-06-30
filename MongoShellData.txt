@@ -1,0 +1,610 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/): mongodb://localhost:27017/
+mongodb://localhost:27017/
+Current Mongosh Log ID: 68622c714e8d6a868909d0e2
+Connecting to:          mongodb://localhost:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.3
+Using MongoDB:          6.0.8
+Using Mongosh:          1.10.3
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-06-23T16:02:59.348+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use mysplDb
+switched to db mysplDb
+mysplDb> db.createCollection ('person'),
+...
+mysplDb> db.createCollection ('person');
+{ ok: 1 }
+mysplDb> db.person.insert({name:'xyz',fname:'abc',age:32})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("68622ed24e8d6a868909d0e3") }
+}
+mysplDb> db.person.insert([fname:'Jhon',lname:'Deo',age:38,city:'Los Santos'})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:23)
+
+> 1 | db.person.insert([fname:'Jhon',lname:'Deo',age:38,city:'Los Santos'})
+    |                        ^
+  2 |
+
+mysplDb> db.person.insert({fname:'Jhon',lname:'Deo',age:38,city:'Los Santos'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("68622f8a4e8d6a868909d0e4") }
+}
+mysplDb> db.person.insertMany([{fname:'Lala',lname:'Patil'},])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("686230694e8d6a868909d0e5") }
+}
+mysplDb> db.person.insertMany([{fname:'The',lname:'Jackels',color:'Black',age:50},{}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("686230a74e8d6a868909d0e6"),
+    '1': ObjectId("686230a74e8d6a868909d0e7")
+  }
+}
+mysplDb> show dbs
+admin     40.00 KiB
+config   108.00 KiB
+local    104.00 KiB
+mysplDb   72.00 KiB
+mysplDb> show collections
+person
+mysplDb> show users
+[]
+mysplDb> db.person.find()
+[
+  {
+    _id: ObjectId("68622ed24e8d6a868909d0e3"),
+    fname: 'xyz',
+    age: 32,
+    lname: 'abc'
+  },
+  {
+    _id: ObjectId("68622f8a4e8d6a868909d0e4"),
+    fname: 'Jhon',
+    lname: 'Deo',
+    age: 38,
+    city: 'Los Santos'
+  },
+  {
+    _id: ObjectId("686230694e8d6a868909d0e5"),
+    fname: 'Lala',
+    lname: 'Patil'
+  },
+  {
+    _id: ObjectId("686230a74e8d6a868909d0e6"),
+    fname: 'The',
+    lname: 'Jackels',
+    color: 'Black',
+    age: 50
+  }
+]
+mysplDb> db.person.find({fname},'Lala')
+ReferenceError: fname is not defined
+mysplDb> db.person.find({fname:'Lala'})
+[
+  {
+    _id: ObjectId("686230694e8d6a868909d0e5"),
+    fname: 'Lala',
+    lname: 'Patil'
+  }
+]
+mysplDb> db.person.find({fname:'Lala',age:38})
+
+mysplDb> db.person.find({fname:'jhon',age:38})
+
+mysplDb> db.person.find({fname:'Jhon',age:38})
+[
+  {
+    _id: ObjectId("68622f8a4e8d6a868909d0e4"),
+    fname: 'Jhon',
+    lname: 'Deo',
+    age: 38,
+    city: 'Los Santos'
+  }
+]
+mysplDb> db.person.find({fname:'Jhon'},{city})
+ReferenceError: city is not defined
+mysplDb> db.person.find({fname:'Jhon'},{city:1})
+[ { _id: ObjectId("68622f8a4e8d6a868909d0e4"), city: 'Los Santos' } ]
+mysplDb> db.person.find({fname:'Jhon'},{city:1,_id:0})
+[ { city: 'Los Santos' } ]
+mysplDb> db.person.find({fname:'Jhon'},{city:1,_id:0,age:0})
+MongoServerError: Cannot do exclusion on field age in inclusion projection
+mysplDb> db.person.find({fname:'Jhon'},{_id:0,age:0})
+[ { fname: 'Jhon', lname: 'Deo', city: 'Los Santos' } ]
+mysplDb> db.person.find({},{_id:0,age:1})
+[ { age: 32 }, { age: 38 }, {}, { age: 50 } ]
+mysplDb> db.person.find.count()
+TypeError: db.person.find.count is not a function
+mysplDb> db.person.find().count()
+4
+mysplDb> db.person.find({fname:'abc'}).count()
+0
+mysplDb> db.person.find().limit(1)
+[
+  {
+    _id: ObjectId("68622ed24e8d6a868909d0e3"),
+    fname: 'xyz',
+    age: 32,
+    lname: 'abc'
+  }
+]
+mysplDb> db.person.find({},{_id:0}).limit(1)
+[ { fname: 'xyz', age: 32, lname: 'abc' } ]
+mysplDb> db.person.find().skip(2).limit(1)
+[
+  {
+    _id: ObjectId("686230694e8d6a868909d0e5"),
+    fname: 'Lala',
+    lname: 'Patil'
+  }
+]
+mysplDb> db.person.sort({age:1})
+TypeError: db.person.sort is not a function
+mysplDb> db.person.sort({age:-1})
+TypeError: db.person.sort is not a function
+mysplDb> db.person.find().sort({age:-1])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:29)
+
+> 1 | db.person.find().sort({age:-1])
+    |                              ^
+  2 |
+
+mysplDb> db.person.find().sort({age:-1})
+[
+  {
+    _id: ObjectId("686230a74e8d6a868909d0e6"),
+    fname: 'The',
+    lname: 'Jackels',
+    color: 'Black',
+mysplDb>
+  },
+mysplDb> db.person.find({},{_id:0,fname:1}).sort({age:-1}).limit(1)
+[ { fname: 'The' } ]
+mysplDb> db.person.update({lname:'Patil'},{$set:{state:'Gujarat'}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mysplDb> db.person.update({fname:'abc'},{$set:{color:'pink'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mysplDb> db.person.update({fname:'abc'},{$set:{color:'pink'}},{upsert:true})
+{
+  acknowledged: true,
+  insertedId: ObjectId("686239ed1c542c47afdfe665"),
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 1
+}
+mysplDb>
+    lname: 'abc'
+  },
+  {
+    _id: ObjectId("68622f8a4e8d6a868909d0e4"),
+    fname: 'Jhon',
+    lname: 'Deo',
+    age: 38,
+    city: 'Los Santos'
+  },
+  {
+    _id: ObjectId("686230a74e8d6a868909d0e6"),
+    fname: 'The',
+    lname: 'Jackels',
+    color: 'Black',
+    age: 50
+  }
+]
+mysplDb> db.person.find({_id:0}).sort({age:1})
+
+mysplDb> db.person.find({},{_id:0}).sort({age:1})
+[
+  { fname: 'Lala', lname: 'Patil' },
+  { fname: 'xyz', age: 32, lname: 'abc' },
+  { fname: 'Jhon', lname: 'Deo', age: 38, city: 'Los Santos' },
+  { fname: 'The', lname: 'Jackels', color: 'Black', age: 50 }
+]
+mysplDb> db.person.find({},{_id:0}).sort({age:-1})
+[
+  { fname: 'The', lname: 'Jackels', color: 'Black', age: 50 },
+  { fname: 'Jhon', lname: 'Deo', age: 38, city: 'Los Santos' },
+  { fname: 'xyz', age: 32, lname: 'abc' },
+  { fname: 'Lala', lname: 'Patil' }
+]
+mysplDb> db.person.find({},{_id:0}).sort({age:-1}).limit(1)
+[ { fname: 'The', lname: 'Jackels', color: 'Black', age: 50 } ]
+mysplDb> db.person.find({},{_id:0,name:1}).sort({age:-1}).limit(1)
+[ {} ]
+mysplDb> db.person.find({},{_id:0,fname:1}).sort({age:-1}).limit(1)
+[ { fname: 'The' } ]
+mysplDb> db.person.update({fname:'abc'},{$set:{color:'pink'}},{upsert:true})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mysplDb> db.person.updateMany({},{$set:{color:'black'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+mysplDb> db.person.upadet({},{$set:{color:'red'}})
+TypeError: db.person.upadet is not a function
+mysplDb> db.person.update({},{$set:{color:'red'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mysplDb> db.person.delete({})mysplDb> db.person.delete({})mysplDb> db.person.delete({})
+TypeError: db.person.delete is not a function
+mysplDb> db.person.deleteOne({})
+{ acknowledged: true, deletedCount: 1 }
+mysplDb> db.person.deleteOne({fname:'Lala'})
+{ acknowledged: true, deletedCount: 1 }
+mysplDb> db.person.deleteMany({})
+{ acknowledged: true, deletedCount: 3 }
+mysplDb> df.person.drop()
+ReferenceError: df is not defined
+mysplDb> db.person.drop()
+true
+mysplDb> db.dropDatabase()
+mysplDb> use test
+switched to db test
+test>
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+test> use advdb
+switched to db advdb
+advdb> db.createCollection('students')
+{ ok: 1 }
+advdb> db.students.insertMany([
+...   { name: "Alice", age: 20, department: "CSE", marks: 82 },
+...   { name: "Bob", age: 21, department: "ECE", marks: 76 },
+...   { name: "Charlie", age: 22, department: "IT", marks: 88 },
+...   { name: "David", age: 20, department: "CSE", marks: 90 },
+...   { name: "Eva", age: 21, department: "EEE", marks: 79 },
+...   { name: "Frank", age: 22, department: "ME", marks: 73 },
+...   { name: "Grace", age: 23, department: "CSE", marks: 95 },
+...   { name: "Hannah", age: 20, department: "ECE", marks: 80 },
+...   { name: "Ian", age: 21, department: "IT", marks: 84 },
+...   { name: "Jack", age: 22, department: "ME", marks: 70 },
+...   { name: "Kara", age: 23, department: "CSE", marks: 92 },
+...   { name: "Leo", age: 20, department: "EEE", marks: 78 },
+...   { name: "Mira", age: 21, department: "IT", marks: 87 },
+...   { name: "Nate", age: 22, department: "ECE", marks: 75 },
+...   { name: "Olivia", age: 23, department: "CSE", marks: 91 },
+...   { name: "Paul", age: 20, department: "ME", marks: 68 },
+...   { name: "Quinn", age: 21, department: "EEE", marks: 85 },
+...   { name: "Rita", age: 22, department: "IT", marks: 89 },
+...   { name: "Sam", age: 23, department: "CSE", marks: 94 },
+...   { name: "Tina", age: 20, department: "ECE", marks: 77 }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("68623eedce7352dbfb8d9b73"),
+    '1': ObjectId("68623eedce7352dbfb8d9b74"),
+    '2': ObjectId("68623eedce7352dbfb8d9b75"),
+    '3': ObjectId("68623eedce7352dbfb8d9b76"),
+    '4': ObjectId("68623eedce7352dbfb8d9b77"),
+    '5': ObjectId("68623eedce7352dbfb8d9b78"),
+    '6': ObjectId("68623eedce7352dbfb8d9b79"),
+    '7': ObjectId("68623eedce7352dbfb8d9b7a"),
+    '8': ObjectId("68623eedce7352dbfb8d9b7b"),
+    '9': ObjectId("68623eedce7352dbfb8d9b7c"),
+    '10': ObjectId("68623eedce7352dbfb8d9b7d"),
+    '11': ObjectId("68623eedce7352dbfb8d9b7e"),
+    '12': ObjectId("68623eedce7352dbfb8d9b7f"),
+    '13': ObjectId("68623eedce7352dbfb8d9b80"),
+    '14': ObjectId("68623eedce7352dbfb8d9b81"),
+    '15': ObjectId("68623eedce7352dbfb8d9b82"),
+    '16': ObjectId("68623eedce7352dbfb8d9b83"),
+    '17': ObjectId("68623eedce7352dbfb8d9b84"),
+    '18': ObjectId("68623eedce7352dbfb8d9b85"),
+    '19': ObjectId("68623eedce7352dbfb8d9b86")
+  }
+}
+advdb> db.students.find()
+[
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b73"),
+    name: 'Alice',
+    age: 20,
+    department: 'CSE',
+    marks: 82
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b74"),
+    name: 'Bob',
+    age: 21,
+    department: 'ECE',
+    marks: 76
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b75"),
+    name: 'Charlie',
+    age: 22,
+    department: 'IT',
+    marks: 88
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b76"),
+    name: 'David',
+    age: 20,
+    department: 'CSE',
+    marks: 90
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b77"),
+    name: 'Eva',
+    age: 21,
+    department: 'EEE',
+    marks: 79
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b78"),
+    name: 'Frank',
+    age: 22,
+    department: 'ME',
+    marks: 73
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b79"),
+    name: 'Grace',
+    age: 23,
+    department: 'CSE',
+    marks: 95
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7a"),
+    name: 'Hannah',
+    age: 20,
+    department: 'ECE',
+    marks: 80
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7b"),
+    name: 'Ian',
+    age: 21,
+    department: 'IT',
+    marks: 84
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7c"),
+    name: 'Jack',
+    age: 22,
+    department: 'ME',
+    marks: 70
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7d"),
+    name: 'Kara',
+    age: 23,
+    department: 'CSE',
+    marks: 92
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7e"),
+    name: 'Leo',
+    age: 20,
+    department: 'EEE',
+    marks: 78
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7f"),
+    name: 'Mira',
+    age: 21,
+    department: 'IT',
+    marks: 87
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b80"),
+    name: 'Nate',
+    age: 22,
+    department: 'ECE',
+    marks: 75
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b81"),
+    name: 'Olivia',
+    age: 23,
+    department: 'CSE',
+    marks: 91
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b82"),
+    name: 'Paul',
+    age: 20,
+    department: 'ME',
+    marks: 68
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b83"),
+    name: 'Quinn',
+    age: 21,
+    department: 'EEE',
+    marks: 85
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b84"),
+    name: 'Rita',
+    age: 22,
+    department: 'IT',
+    marks: 89
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b85"),
+    name: 'Sam',
+    age: 23,
+    department: 'CSE',
+    marks: 94
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b86"),
+    name: 'Tina',
+    age: 20,
+    department: 'ECE',
+    marks: 77
+  }
+]
+Type "it" for more
+advdb> db.students.find({marks:{$eq:87}},{name:1,_id:0})
+[ { name: 'Mira' } ]
+advdb> db.students.find({marks:{$gt:87}},{name:1,_id:0})
+[
+  { name: 'Charlie' },
+  { name: 'David' },
+  { name: 'Grace' },
+  { name: 'Kara' },
+  { name: 'Olivia' },
+  { name: 'Rita' },
+  { name: 'Sam' }
+]
+advdb> db.students.find({marks:{$gte:87}},{name:1,_id:0})
+[
+  { name: 'Charlie' },
+  { name: 'David' },
+  { name: 'Grace' },
+  { name: 'Kara' },
+  { name: 'Mira' },
+  { name: 'Olivia' },
+  { name: 'Rita' },
+  { name: 'Sam' }
+]
+advdb> db.students.find({marks:{$lt:87}},{name:1,_id:0})
+[
+  { name: 'Alice' },
+  { name: 'Bob' },
+  { name: 'Eva' },
+  { name: 'Frank' },
+  { name: 'Hannah' },
+  { name: 'Ian' },
+  { name: 'Jack' },
+  { name: 'Leo' },
+  { name: 'Nate' },
+  { name: 'Paul' },
+  { name: 'Quinn' },
+  { name: 'Tina' }
+]
+advdb> db.students.find({marks:{$lte:87}},{name:1,_id:0})
+[
+  { name: 'Alice' },
+  { name: 'Bob' },
+  { name: 'Eva' },
+  { name: 'Frank' },
+  { name: 'Hannah' },
+  { name: 'Ian' },
+  { name: 'Jack' },
+  { name: 'Leo' },
+  { name: 'Mira' },
+  { name: 'Nate' },
+  { name: 'Paul' },
+  { name: 'Quinn' },
+  { name: 'Tina' }
+]
+advdb> db.students.find({marks:{$ne:87}},{name:1,_id:0})
+[
+  { name: 'Alice' },   { name: 'Bob' },
+  { name: 'Charlie' }, { name: 'David' },
+  { name: 'Eva' },     { name: 'Frank' },
+  { name: 'Grace' },   { name: 'Hannah' },
+  { name: 'Ian' },     { name: 'Jack' },
+  { name: 'Kara' },    { name: 'Leo' },
+  { name: 'Nate' },    { name: 'Olivia' },
+  { name: 'Paul' },    { name: 'Quinn' },
+  { name: 'Rita' },    { name: 'Sam' },
+  { name: 'Tina' }
+]
+advdb> db.students.find({marks:{$in:[87]}},{name:1,_id:0})
+[ { name: 'Mira' } ]
+advdb> db.students.find({marks:{$nin:[87]}},{name:1,_id:0})
+[
+  { name: 'Alice' },   { name: 'Bob' },
+  { name: 'Charlie' }, { name: 'David' },
+  { name: 'Eva' },     { name: 'Frank' },
+  { name: 'Grace' },   { name: 'Hannah' },
+  { name: 'Ian' },     { name: 'Jack' },
+  { name: 'Kara' },    { name: 'Leo' },
+  { name: 'Nate' },    { name: 'Olivia' },
+  { name: 'Paul' },    { name: 'Quinn' },
+  { name: 'Rita' },    { name: 'Sam' },
+  { name: 'Tina' }
+]
+advdb> db.students.find({marks:{$nin:[75,85,87,95]}},{name:1,_id:0})
+[
+  { name: 'Alice' },   { name: 'Bob' },
+  { name: 'Charlie' }, { name: 'David' },
+  { name: 'Eva' },     { name: 'Frank' },
+  { name: 'Hannah' },  { name: 'Ian' },
+  { name: 'Jack' },    { name: 'Kara' },
+  { name: 'Leo' },     { name: 'Olivia' },
+  { name: 'Paul' },    { name: 'Rita' },
+  { name: 'Sam' },     { name: 'Tina' }
+]
+advdb> db.students.find({marks:{$in:[75,85,87,95]}},{name:1,_id:0})
+[
+  { name: 'Grace' },
+  { name: 'Mira' },
+  { name: 'Nate' },
+  { name: 'Quinn' }
+]
+advdb> db.students.find({$or:[{age:22},{department:'IT'}]},{name:1,_id:0})
+[
+  { name: 'Charlie' },
+  { name: 'Frank' },
+  { name: 'Ian' },
+  { name: 'Jack' },
+  { name: 'Mira' },
+  { name: 'Nate' },
+  { name: 'Rita' }
+]
+advdb> db.students.find({$nor:[{age:22},{department:'IT'}]},{name:1,_id:0})
+[
+  { name: 'Alice' },
+  { name: 'Bob' },
+  { name: 'David' },
+  { name: 'Eva' },
+  { name: 'Grace' },
+  { name: 'Hannah' },
+  { name: 'Kara' },
+  { name: 'Leo' },
+  { name: 'Olivia' },
+  { name: 'Paul' },
+  { name: 'Quinn' },
+  { name: 'Sam' },
+  { name: 'Tina' }
+]
+advdb> db.students.find({$and:[{age:22},{department:'IT'}]},{name:1,_id:0})
+[ { name: 'Charlie' }, { name: 'Rita' } ]
+advdb>
