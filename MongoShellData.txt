@@ -137,7 +137,7 @@ mysplDb> db.person.find().limit(1)
     age: 32,
     lname: 'abc'
   }
-]
+]F
 mysplDb> db.person.find({},{_id:0}).limit(1)
 [ { fname: 'xyz', age: 32, lname: 'abc' } ]
 mysplDb> db.person.find().skip(2).limit(1)
@@ -607,4 +607,706 @@ advdb> db.students.find({$nor:[{age:22},{department:'IT'}]},{name:1,_id:0})
 ]
 advdb> db.students.find({$and:[{age:22},{department:'IT'}]},{name:1,_id:0})
 [ { name: 'Charlie' }, { name: 'Rita' } ]
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+advdb> db.students.find({age:{$not:{$eq:22}}})
+[
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b73"),
+    name: 'Alice',
+    age: 20,
+    department: 'CSE',
+    marks: 82
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b74"),
+    name: 'Bob',
+    age: 21,
+    department: 'ECE',
+    marks: 76
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b76"),
+    name: 'David',
+    age: 20,
+    department: 'CSE',
+    marks: 90
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b77"),
+    name: 'Eva',
+    age: 21,
+    department: 'EEE',
+    marks: 79
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b79"),
+    name: 'Grace',
+    age: 23,
+    department: 'CSE',
+    marks: 95
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7a"),
+    name: 'Hannah',
+    age: 20,
+    department: 'ECE',
+    marks: 80
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7b"),
+    name: 'Ian',
+    age: 21,
+    department: 'IT',
+    marks: 84
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7d"),
+    name: 'Kara',
+    age: 23,
+    department: 'CSE',
+    marks: 92
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7e"),
+    name: 'Leo',
+    age: 20,
+    department: 'EEE',
+    marks: 78
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7f"),
+    name: 'Mira',
+    age: 21,
+    department: 'IT',
+    marks: 87
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b81"),
+    name: 'Olivia',
+    age: 23,
+    department: 'CSE',
+    marks: 91
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b82"),
+    name: 'Paul',
+    age: 20,
+    department: 'ME',
+    marks: 68
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b83"),
+    name: 'Quinn',
+    age: 21,
+    department: 'EEE',
+    marks: 85
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b85"),
+    name: 'Sam',
+    age: 23,
+    department: 'CSE',
+    marks: 94
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b86"),
+    name: 'Tina',
+    age: 20,
+    department: 'ECE',
+    marks: 77
+  }
+]
+
+advdb> db.students.find({age:{$not:/^[0-9]$/}})
+[
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b73"),
+    name: 'Alice',
+    age: 20,
+    department: 'CSE',
+    marks: 82
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b74"),
+    name: 'Bob',
+    age: 21,
+    department: 'ECE',
+    marks: 76
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b75"),
+    name: 'Charlie',
+    age: 22,
+    department: 'IT',
+    marks: 88
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b76"),
+    name: 'David',
+    age: 20,
+    department: 'CSE',
+    marks: 90
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b77"),
+    name: 'Eva',
+    age: 21,
+    department: 'EEE',
+    marks: 79
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b78"),
+    name: 'Frank',
+    age: 22,
+    department: 'ME',
+    marks: 73
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b79"),
+    name: 'Grace',
+    age: 23,
+    department: 'CSE',
+    marks: 95
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7a"),
+    name: 'Hannah',
+    age: 20,
+    department: 'ECE',
+    marks: 80
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7b"),
+    name: 'Ian',
+    age: 21,
+    department: 'IT',
+    marks: 84
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7c"),
+    name: 'Jack',
+    age: 22,
+    department: 'ME',
+    marks: 70
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7d"),
+    name: 'Kara',
+    age: 23,
+    department: 'CSE',
+    marks: 92
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7e"),
+    name: 'Leo',
+    age: 20,
+    department: 'EEE',
+    marks: 78
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7f"),
+    name: 'Mira',
+    age: 21,
+    department: 'IT',
+    marks: 87
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b80"),
+    name: 'Nate',
+    age: 22,
+    department: 'ECE',
+    marks: 75
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b81"),
+    name: 'Olivia',
+    age: 23,
+    department: 'CSE',
+    marks: 91
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b82"),
+    name: 'Paul',
+    age: 20,
+    department: 'ME',
+    marks: 68
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b83"),
+    name: 'Quinn',
+    age: 21,
+    department: 'EEE',
+    marks: 85
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b84"),
+    name: 'Rita',
+    age: 22,
+    department: 'IT',
+    marks: 89
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b85"),
+    name: 'Sam',
+    age: 23,
+    department: 'CSE',
+    marks: 94
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b86"),
+    name: 'Tina',
+    age: 20,
+    department: 'ECE',
+    marks: 77
+  }
+]
+Type "it" for more
+advdb> it
+no cursor
+
+advdb> db.students.find({name:{$not:/^a/i}})
+[
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b74"),
+    name: 'Bob',
+    age: 21,
+    department: 'ECE',
+    marks: 76
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b75"),
+    name: 'Charlie',
+    age: 22,
+    department: 'IT',
+    marks: 88
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b76"),
+    name: 'David',
+    age: 20,
+    department: 'CSE',
+    marks: 90
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b77"),
+    name: 'Eva',
+    age: 21,
+    department: 'EEE',
+    marks: 79
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b78"),
+    name: 'Frank',
+    age: 22,
+    department: 'ME',
+    marks: 73
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b79"),
+    name: 'Grace',
+    age: 23,
+    department: 'CSE',
+    marks: 95
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7a"),
+    name: 'Hannah',
+    age: 20,
+    department: 'ECE',
+    marks: 80
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7b"),
+    name: 'Ian',
+    age: 21,
+    department: 'IT',
+    marks: 84
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7c"),
+    name: 'Jack',
+    age: 22,
+    department: 'ME',
+    marks: 70
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7d"),
+    name: 'Kara',
+    age: 23,
+    department: 'CSE',
+    marks: 92
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7e"),
+    name: 'Leo',
+    age: 20,
+    department: 'EEE',
+    marks: 78
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b7f"),
+    name: 'Mira',
+    age: 21,
+    department: 'IT',
+    marks: 87
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b80"),
+    name: 'Nate',
+    age: 22,
+    department: 'ECE',
+    marks: 75
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b81"),
+    name: 'Olivia',
+    age: 23,
+    department: 'CSE',
+    marks: 91
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b82"),
+    name: 'Paul',
+    age: 20,
+    department: 'ME',
+    marks: 68
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b83"),
+    name: 'Quinn',
+    age: 21,
+    department: 'EEE',
+    marks: 85
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b84"),
+    name: 'Rita',
+    age: 22,
+    department: 'IT',
+    marks: 89
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b85"),
+    name: 'Sam',
+    age: 23,
+    department: 'CSE',
+    marks: 94
+  },
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b86"),
+    name: 'Tina',
+    age: 20,
+    department: 'ECE',
+    marks: 77
+  }
+]
+
+advdb> db.students.find({name:{$not:/^a/i}}).count()
+19
+
+advdb> db.students.find({name:{$regex:'^[aA]'}}).count()
+1
+advdb> db.students.find({name:{$regex:/^a/i}}).count()
+1
+advdb> db.students.find({name:{$regex:/^a/i}})
+[
+  {
+    _id: ObjectId("68623eedce7352dbfb8d9b73"),
+    name: 'Alice',
+    age: 20,
+    department: 'CSE',
+    marks: 82
+  }
+]
+
+advdb> db.students.updateMany({},{$set:{newc:'test'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.updateOne({},{$unset:{department:'abc'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+advdb> db.students.updateOne({department:'IT'},{$unset:{department:''}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({newc:'test'},{$unset:{newc:''}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{age:{$inc:1}})
+MongoInvalidArgumentError: Update document requires atomic operators
+advdb> db.students.updateMany({},{$inc:{age:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{$inc:{age:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.update({age:{$gt:25}},{$inc:{age:-5}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+advdb> db.students.update({age:{$gt:22}},{$inc:{age:-5}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{$mul:{marks:1.5}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.studentes.updateMany({},{$rename:{name:Fname}})
+ReferenceError: Fname is not defined
+advdb> db.studentes.updateMany({},{$rename:{name:'Fname'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+advdb> db.studentes.updateMany({},{$rename:{'name':'Fname'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{$rename:{'name':'Fname'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{$set:{passdate:new Date()}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{$currentdate:{passdate:{type:date}}})
+ReferenceError: date is not defined
+advdb> db.students.updateMany({},{$currentdate:{passdate:{type:datestamp}}})
+ReferenceError: datestamp is not defined
+advdb> db.students.updateMany({},{$currentdate:{passdate:{type:'date'}}})
+MongoServerError: Unknown modifier: $currentdate. Expected a valid update modifier or pipeline-style update specified as an array
+advdb> db.students.updateMany({},{$currentdate:{passdate:{$type:date}}})
+ReferenceError: date is not defined
+advdb> db.students.updateMany({},{$currentdate:{passdate:{$type:'date'}}})
+MongoServerError: Unknown modifier: $currentdate. Expected a valid update modifier or pipeline-style update specified as an array
+advdb> db.students.updateMany({},{$currentDate:{passdate:{$type:'date'}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+advdb> db.students.updateMany({},{$currentDate:{passdate:{$type:'timestamp'}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 20,
+  modifiedCount: 20,
+  upsertedCount: 0
+}
+
+advdb> db.createCollection('lju')
+{ ok: 1 }
+advdb> db.lju.insertMany([{user_id:'U1001',name:'a',age:20,status:'A'}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6864b665a53914a8f336c86d") }
+}
+advdb> db.lju.insertMany([{user_id:'U1002',name:'b',age:21,status:'A'}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6864b675a53914a8f336c86e") }
+}
+advdb> db.lju.insertMany([{user_id:'U1003',name:'c',age:22,status:'NA'}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6864b684a53914a8f336c86f") }
+}
+advdb> db.lju.insertMany([{user_id:'U1004',name:'d',age:23,status:'NA'}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6864b691a53914a8f336c870") }
+}
+advdb> db.lju.insertMany([{user_id:'U1005',name:'e',age:24,status:'A'}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6864b6a1a53914a8f336c871") }
+}
+
+advdb> db.lju.updateMany({},{$set:{joinDate:new Date()}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+
+advdb> db.lju.updateMany({},{$unset:{joinDate:''}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+
+advdb> db.lju.find({},{_id:1,name:1})
+[
+  { _id: ObjectId("6864b665a53914a8f336c86d"), name: 'a' },
+  { _id: ObjectId("6864b675a53914a8f336c86e"), name: 'b' },
+  { _id: ObjectId("6864b684a53914a8f336c86f"), name: 'c' },
+  { _id: ObjectId("6864b691a53914a8f336c870"), name: 'd' },
+  { _id: ObjectId("6864b6a1a53914a8f336c871"), name: 'e' }
+]
+advdb> db.lju.find({status:'A'},{_id:0})
+[
+  { user_id: 'U1001', name: 'a', age: 20, status: 'A' },
+  { user_id: 'U1002', name: 'b', age: 21, status: 'A' },
+  { user_id: 'U1005', name: 'e', age: 24, status: 'A' }
+]
+advdb> db.lju.find({status:{$ne:'A'}},{_id:0})
+[
+  { user_id: 'U1003', name: 'c', age: 22, status: 'NA' },
+  { user_id: 'U1004', name: 'd', age: 23, status: 'NA' }
+]
+
+advdb> db.lju.find({status:'A',age:20},{_id:0,name:1})
+[ { name: 'a' } ]
+
+advdb> db.lju.find({$or:[{age:{$gte:20}},{age:{$lte:15}}]},{_id:0})
+[
+  { user_id: 'U1001', name: 'a', age: 20, status: 'A' },
+  { user_id: 'U1002', name: 'b', age: 21, status: 'A' },
+  { user_id: 'U1003', name: 'c', age: 22, status: 'NA' },
+  { user_id: 'U1004', name: 'd', age: 23, status: 'NA' },
+  { user_id: 'U1005', name: 'e', age: 24, status: 'A' }
+]
+
+advdb> db.lju.find({status:'A'},{_id:0}).sort({age:-1})
+[
+  { user_id: 'U1005', name: 'e', age: 24, status: 'A' },
+  { user_id: 'U1002', name: 'b', age: 21, status: 'A' },
+  { user_id: 'U1001', name: 'a', age: 20, status: 'A' }
+]
+
+advdb> db.lju.find({name:{$regex:/^[A-Za-z0-9]*test[A-Za-z0-9]*$/}},{_id:0})
+[ { user_id: 'U1002', name: 'abctestabc', age: 21, status: 'A' } ]
+
+advdb> db.lju.find({age:{$gte:20}},{_id:0}).count()
+5
+advdb> db.lju.updateMany({age:{$lt:20}},{$inc:{age:3}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+advdb> db.lju.updateMany({age:{$lte:20}},{$inc:{age:3}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+advdb> db.lju.find().explain()
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'advdb.lju',
+    indexFilterSet: false,
+    parsedQuery: {},
+    queryHash: '17830885',
+    planCacheKey: '17830885',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: { stage: 'COLLSCAN', direction: 'forward' },
+    rejectedPlans: []
+  },
+  command: { find: 'lju', filter: {}, '$db': 'advdb' },
+  serverInfo: {
+    host: '406-7-263',
+    port: 27017,
+    version: '6.0.8',
+    gitVersion: '3d84c0dd4e5d99be0d69003652313e7eaf4cdd74'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  ok: 1
+}
+
+advdb> db.lju.find({},{_id:0,name:1}).skip(3).limit(2)
+[ { name: 'd' }, { name: 'e' } ]
+
+advdb> db.lju.find({name:{$nin:['a','b','c']}},{_id:0,name:1})
+[ { name: 'abctestabc' }, { name: 'd' }, { name: 'e' } ]
+
+advdb> db.lju.deleteMany({})
+{ acknowledged: true, deletedCount: 5 }
 advdb>
