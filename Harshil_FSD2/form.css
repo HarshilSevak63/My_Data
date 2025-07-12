@@ -1,0 +1,160 @@
+/* General Body Styles */
+/* No specific class needed for body as it's the root container */
+.body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6; /* Light background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    margin: 0;
+    padding: 20px; /* Padding around the form */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Form Container Styles */
+.form-container { /* Class for the form element */
+    background-color: #ffffff; /* White background for the form */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: 100%;
+    max-width: 500px; /* Max width for larger screens */
+    box-sizing: border-box;
+}
+
+/* Label and Input Grouping */
+.form-group label { /* Class for labels within a form group */
+    display: flex; /* Flexbox for alignment of label and input */
+    flex-direction: column; /* Stack label above input */
+    margin-bottom: 18px; /* Space between each form field group */
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Input, Select, Textarea Base Styles */
+.form-input-field { /* Class for all input-like fields */
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 8px; /* Space between label text and input field */
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #555;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Focus States for Inputs, Select, Textarea */
+.form-input-field:focus { /* Focus state for the input-like fields */
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Specific styles for select element */
+.form-select { /* Class for the select element */
+    appearance: none; /* Remove default select arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20512%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M208%20256c0%2011.6-4.7%2022.9-13.1%2031.3L89.4%20405.3c-17.7%2017.7-46.7%2017.7-64.4%200s-17.7-46.7%200-64.4L136.6%20256%2025%20144.9c-17.7-17.7-17.7-46.7%200-64.4s46.7-17.7%2064.4%200L194.9%20224.7c8.4%208.4%2013.1%2019.7%2013.1%2031.3z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow for select */
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 40px; /* Make space for the custom arrow */
+}
+
+/* Textarea specific styles */
+.form-textarea { /* Class for the textarea */
+    resize: vertical; /* Allow vertical resizing only */
+    min-height: 100px;
+}
+
+/* Button Container for alignment (if you group them in HTML) */
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Base Button Styles */
+.form-button { /* Base class for all form buttons */
+    background-color: #007bff; /* Blue background */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-grow: 1; /* Allow buttons to grow and fill space */
+}
+
+/* Specific Button Styles */
+.form-button-submit { /* Class for the submit button */
+    background-color: #007bff;
+}
+
+.form-button-reset { /* Class for the reset button */
+    background-color: #6c757d;
+}
+
+/* Button Hover and Active States */
+.form-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.form-button-reset:hover {
+    background-color: #5a6268; /* Darker grey on hover */
+}
+
+.form-button:active {
+    transform: translateY(0); /* Return to original position on click */
+}
+
+/* Utility Class for line breaks (optional, better to use flexbox gaps or margin) */
+br {
+    display: none; /* Hide default line breaks */
+}
+
+/* Small screen adjustments */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 25px;
+    }
+    .button-group {
+        flex-direction: column;
+        gap: 10px; /* Adjust gap for stacked buttons */
+    }
+    .form-button {
+        width: 100%;
+        margin-right: 0; /* Remove right margin if stacked */
+    }
+}
+
+/* Your custom button class */
+.find-users-btn { /* Renamed from .form-btn for clarity and consistency */
+    color: white !important; /* Changed to white as it's typically better on a blue gradient */
+    background: linear-gradient(135deg, rgb(5, 133, 238), rgb(5, 67, 148));
+    padding: 12px 25px; /* Added padding for consistency */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Make it a block element to control width/margin if needed */
+    margin-top: 20px; /* Space it from the form */
+    text-align: center;
+    text-decoration: none; /* For the anchor inside */
+}
+
+.find-users-btn:hover {
+    filter: brightness(1.1); /* Slightly brighten on hover */
+    transform: translateY(-2px);
+}
+
+.find-users-btn a {
+    color: inherit; /* Inherit color from the button */
+    text-decoration: none;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup Form</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <div class='body'>
+    <form action="/signup" method="post" class="form-container">
+        <div class="form-group">
+            <label>Username:
+                <input type="text" name="uname" id="uname" class="form-input-field" required/>
+            </label>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Phone no:
+                <input type="tel" name="phone" id="phone" class="form-input-field" required/>
+            </label>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Email:
+                <input type="email" name="email" id="email" class="form-input-field" required/>
+            </label>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>DOB:
+                <input type="date" name="dob" id="dob" class="form-input-field" required/>
+            </label>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Role:
+                <select name="role" id="role" class="form-input-field form-select" required>
+                    <option value="">--Select Role--</option>
+                    <option value="customer">Customer</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </label>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Notes:
+                <textarea rows="5" cols="auto" name="notes" id="notes" class="form-input-field form-textarea"></textarea>
+            </label>
+        </div>
+        <br>
+        <div class="button-group">
+            <button type="submit" class="form-button form-button-submit">Submit</button>
+            <button type="reset" class="form-button form-button-reset">Reset</button>
+        </div>
+    </form>
+    </div>
+    <button class="find-users-btn"><a href="/users" style="text-decoration:none;color:inherit">Find all users</a></button>
+</body>
+</html>
