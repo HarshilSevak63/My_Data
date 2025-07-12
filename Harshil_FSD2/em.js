@@ -36,12 +36,10 @@ const sc=mg.Schema({
     dob:
     {
         type:Date,
-        default: new Date('2007-01-01T00:00:00Z'),
     },
     role:
     {
         type:String,
-        default:'customer',
     },
 
 });
@@ -57,8 +55,8 @@ app.post('/signup',async (req,res)=>{
         uname:req.body.uname,
         phone:req.body.phone,
         email:req.body.email,
-        dob:req.body.dob,
-        role:req.body.role,
+        dob:req.body.dob || new Date('2018-01-01'),
+        role:req.body.role || 'customer',
 
     });
     var r=await u1.save();
