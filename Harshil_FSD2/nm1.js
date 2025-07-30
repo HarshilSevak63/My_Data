@@ -9,7 +9,7 @@ mg.pluralize(null);
 const student= mg.model('student',sc);
 
 // Insert one
-const insertData=async ()=>{1
+const insertData=async ()=>{
     try{
         const s1=new student({
             fname:'Jhon',lname:'Wick',age:30,passed:false
